@@ -1,5 +1,6 @@
 function render({model, el}) {
     const config = {
+        basevalue: model.get("amount"),
         minValue: model.get("min_value"),
         maxValue: model.get("max_value"),
         stepSize: model.get("step"),
@@ -9,7 +10,8 @@ function render({model, el}) {
         pixelsPerStep: model.get("pixels_per_step")
     };
 
-    let amount = model.get("amount");
+    let abs_steps = 0
+    let amount = basevalue
 
     const container = document.createElement('div');
     container.classList.add("tangle-container");
@@ -64,9 +66,10 @@ function render({model, el}) {
         function onMouseMove(e) {
             const deltaX = e.clientX - startX;
             const steps = Math.floor(deltaX / config.pixelsPerStep);
+            abs_steps += steps
             amount = Math.max(config.minValue, 
                            Math.min(config.maxValue, 
-                                    startValue * (1 + steps * config.stepSize)));
+                                    basevalue * (1 + config.stepSize) ** abs_steps));
             renderValue();
             debouncedUpdateModel();
         }
