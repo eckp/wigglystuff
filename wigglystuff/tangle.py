@@ -66,6 +66,71 @@ class TangleSlider(anywidget.AnyWidget):
             **kwargs,
         )
 
+class TangleSliderExp(anywidget.AnyWidget):
+    """Inline slider inspired by Bret Victor's Tangle UI, with exponential scaling.
+
+    TODO: double-click to reset to default value
+    TODO: make unbounded by default
+    TODO: how to handle negative values?
+
+    Examples:
+        ```python
+        from wigglystuff import TangleSliderExp
+
+        slider = TangleSliderExp(amount=50, min_value=None, max_value=None)
+        slider
+        ```
+    """
+
+    _esm = Path(__file__).parent / "static" / "tangle-slider-exp.js"
+    amount = traitlets.Float(0.0).tag(sync=True)
+    min_value = traitlets.Float(-100.0).tag(sync=True)
+    max_value = traitlets.Float(100.0).tag(sync=True)
+    step = traitlets.Float(0.1).tag(sync=True)
+    pixels_per_step = traitlets.Int(2).tag(sync=True)
+    prefix = traitlets.Unicode("").tag(sync=True)
+    suffix = traitlets.Unicode("").tag(sync=True)
+    digits = traitlets.Int(1).tag(sync=True)
+
+    def __init__(
+        self,
+        amount: Optional[float] = None,
+        min_value: float = -100,
+        max_value: float = 100,
+        step: float = 1.0,
+        pixels_per_step: int = 2,
+        prefix: str = "",
+        suffix: str = "",
+        digits: int = 1,
+        **kwargs: Any,
+    ) -> None:
+        """Create a exponential slider suitable for inline Tangle interactions.
+
+        Args:
+            amount: Starting value; defaults to midpoint of bounds.
+            min_value: Lower bound.
+            max_value: Upper bound.
+            step: Increment size.
+            pixels_per_step: Drag distance per step.
+            prefix: Text shown before the value.
+            suffix: Text shown after the value.
+            digits: Number formatting precision.
+            **kwargs: Forwarded to ``anywidget.AnyWidget``.
+        """
+        if amount is None:
+            amount = (max_value + min_value) / 2
+        super().__init__(
+            amount=amount,
+            min_value=min_value,
+            max_value=max_value,
+            step=step,
+            pixels_per_step=pixels_per_step,
+            prefix=prefix,
+            suffix=suffix,
+            digits=digits,
+            **kwargs,
+        )
+
 
 class TangleChoice(anywidget.AnyWidget):
     """Inline choice widget that cycles through labeled options.
