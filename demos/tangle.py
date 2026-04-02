@@ -49,7 +49,7 @@ def _(mo):
 @app.cell
 def _(TangleSlider, TangleSliderExp, mo):
     coffees = mo.ui.anywidget(TangleSlider(amount=10, min_value=0, step=1, suffix=" coffees", digits=0))
-    price = mo.ui.anywidget(TangleSliderExp(amount=3.50, min_value=0.1, max_value=10, step=0.02, prefix="$", digits=2))
+    price = mo.ui.anywidget(TangleSliderExp(amount=3.50, min_value=0.5, max_value=1e10, step=0.02, prefix="$", digits=2))
     return coffees, price
 
 

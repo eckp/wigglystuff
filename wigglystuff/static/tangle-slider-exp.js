@@ -34,9 +34,10 @@ function render({model, el}) {
             config.digits = model.get("digits");
             config.pixelsPerStep = model.get("pixels_per_step");
             amount = model.get("amount");
+            // FIXME: code duplication
             config.minSteps = Math.floor(Math.log(config.minValue/config.basevalue)/Math.log(1+config.stepSize))
             config.maxSteps = Math.ceil(Math.log(config.maxValue/config.basevalue)/Math.log(1+config.stepSize))
-            // FIXME: code duplication
+            // FIXME: handle negative bounds
             renderValue();
         });
     });

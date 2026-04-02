@@ -85,7 +85,7 @@ class TangleSliderExp(anywidget.AnyWidget):
     _esm = Path(__file__).parent / "static" / "tangle-slider-exp.js"
     amount = traitlets.Float(0.0).tag(sync=True)
     min_value = traitlets.Float(-100.0).tag(sync=True)
-    max_value = traitlets.Float(100.0).tag(sync=True)
+    max_value = traitlets.Float(100.0).tag(sync=True)  # TODO: allow infinite range?
     step = traitlets.Float(0.1).tag(sync=True)
     pixels_per_step = traitlets.Int(2).tag(sync=True)
     prefix = traitlets.Unicode("").tag(sync=True)
