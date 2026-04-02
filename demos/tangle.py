@@ -5,10 +5,8 @@
 #     "marimo>=0.19.4",
 #     "numpy==2.4.1",
 #     "pandas==2.3.3",
-#     "wigglystuff",
+#     "wigglystuff @ git+https://github.com/eckp/wigglystuff@feature/exponential_tangle",
 # ]
-# [tool.uv.sources]
-# wigglystuff = { git = "https://github.com/eckp/wigglystuff.git", branch = "feature/exponential_tangle" }
 # ///
 
 import marimo
