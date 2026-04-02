@@ -3,12 +3,17 @@ function render({model, el}) {
         basevalue: model.get("amount"),
         minValue: model.get("min_value"),
         maxValue: model.get("max_value"),
+        minSteps: 0,
+        maxSteps: 0,
         stepSize: model.get("step"),
         prefix: model.get("prefix"),
         suffix: model.get("suffix"),
         digits: model.get("digits"),
         pixelsPerStep: model.get("pixels_per_step")
     };
+
+    config.minSteps = Math.floor(Math.log(config.minValue/config.basevalue)/Math.log(1+config.stepSize))
+    config.maxSteps = Math.ceil(Math.log(config.maxValue/config.basevalue)/Math.log(1+config.stepSize))
 
     let abs_steps = 0
     let amount = config.basevalue
@@ -29,6 +34,9 @@ function render({model, el}) {
             config.digits = model.get("digits");
             config.pixelsPerStep = model.get("pixels_per_step");
             amount = model.get("amount");
+            config.minSteps = Math.floor(Math.log(config.minValue/config.basevalue)/Math.log(1+config.stepSize))
+            config.maxSteps = Math.ceil(Math.log(config.maxValue/config.basevalue)/Math.log(1+config.stepSize))
+            // FIXME: code duplication
             renderValue();
         });
     });
@@ -66,7 +74,9 @@ function render({model, el}) {
         function onMouseMove(e) {
             const deltaX = e.clientX - startX;
             const steps = Math.floor(deltaX / config.pixelsPerStep);
-            abs_steps = startSteps + steps  // TODO: limits on abs_steps instead of on value
+            abs_steps = Math.max(config.minSteps, 
+                           Math.min(config.maxSteps, 
+                                    startSteps + steps));
             amount = Math.max(config.minValue, 
                            Math.min(config.maxValue, 
                                     config.basevalue * (1 + config.stepSize) ** abs_steps));
