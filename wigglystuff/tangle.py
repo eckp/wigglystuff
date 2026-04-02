@@ -97,7 +97,7 @@ class TangleSliderExp(anywidget.AnyWidget):
         amount: Optional[float] = None,
         min_value: float = -100,
         max_value: float = 100,
-        step: float = 1.0,
+        step: float = 0.1,
         pixels_per_step: int = 2,
         prefix: str = "",
         suffix: str = "",

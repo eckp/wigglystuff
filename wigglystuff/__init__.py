@@ -31,7 +31,7 @@ from .slider2d import Slider2D
 from .spline_draw import SplineDraw
 from .sortable_list import SortableList
 from .talk import WebkitSpeechToTextWidget
-from .tangle import TangleChoice, TangleSelect, TangleSlider
+from .tangle import TangleChoice, TangleSelect, TangleSlider, TangleSliderExp
 from .text_compare import TextCompare
 from .three_widget import ThreeWidget
 from .wandb_chart import WandbChart

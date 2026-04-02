@@ -11,7 +11,7 @@ function render({model, el}) {
     };
 
     let abs_steps = 0
-    let amount = basevalue
+    let amount = config.basevalue
 
     const container = document.createElement('div');
     container.classList.add("tangle-container");
@@ -61,15 +61,15 @@ function render({model, el}) {
         const element = e.target;
         element.style.cursor = 'grabbing';
         const startX = e.clientX;
-        const startValue = parseFloat(element.textContent.replace(config.prefix, '').replace(config.suffix, ''));
-
+        const startSteps = abs_steps
+        
         function onMouseMove(e) {
             const deltaX = e.clientX - startX;
             const steps = Math.floor(deltaX / config.pixelsPerStep);
-            abs_steps += steps
+            abs_steps = startSteps + steps  // TODO: limits on abs_steps instead of on value
             amount = Math.max(config.minValue, 
                            Math.min(config.maxValue, 
-                                    basevalue * (1 + config.stepSize) ** abs_steps));
+                                    config.basevalue * (1 + config.stepSize) ** abs_steps));
             renderValue();
             debouncedUpdateModel();
         }

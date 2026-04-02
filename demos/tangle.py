@@ -5,13 +5,15 @@
 #     "marimo>=0.19.4",
 #     "numpy==2.4.1",
 #     "pandas==2.3.3",
-#     "wigglystuff==0.2.37",
+#     "wigglystuff",
 # ]
+# [tool.uv.sources]
+# wigglystuff = { path = "../", editable = true }
 # ///
 
 import marimo
 
-__generated_with = "0.19.4"
+__generated_with = "0.22.0"
 app = marimo.App(width="medium")
 
 
@@ -22,8 +24,18 @@ def _():
     import numpy as np
     import pandas as pd
 
-    from wigglystuff import TangleSlider, TangleChoice, TangleSelect
-    return TangleChoice, TangleSelect, TangleSlider, alt, mo, np, pd
+    from wigglystuff import TangleSlider, TangleSliderExp, TangleChoice, TangleSelect
+
+    return (
+        TangleChoice,
+        TangleSelect,
+        TangleSlider,
+        TangleSliderExp,
+        alt,
+        mo,
+        np,
+        pd,
+    )
 
 
 @app.cell(hide_code=True)
@@ -35,9 +47,9 @@ def _(mo):
 
 
 @app.cell
-def _(TangleSlider, mo):
+def _(TangleSlider, TangleSliderExp, mo):
     coffees = mo.ui.anywidget(TangleSlider(amount=10, min_value=0, step=1, suffix=" coffees", digits=0))
-    price = mo.ui.anywidget(TangleSlider(amount=3.50, min_value=0.01, max_value=10, step=0.01, prefix="$", digits=2))
+    price = mo.ui.anywidget(TangleSliderExp(amount=3.50, min_value=0.01, max_value=10, step=0.01, prefix="$", digits=2))
     return coffees, price
 
 
@@ -136,14 +148,14 @@ def _(mo):
 
 
 @app.cell
-def _(TangleSelect, mo):
+def _(TangleSelect, TangleSlider, mo):
     shouting = mo.ui.anywidget(TangleSelect(["🥔", "🥕", "🍎"]))
     times2 = mo.ui.anywidget(TangleSlider(min_value=1, max_value=20, step=1, suffix=" times", amount=3))    
     return shouting, times2
 
 
 @app.cell
-def _(mo, shouting, times):
+def _(mo, shouting, times2):
     mo.md(f"""
     As a quick demo, let's repeat {shouting} {times2}.
 
