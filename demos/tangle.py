@@ -8,7 +8,7 @@
 #     "wigglystuff",
 # ]
 # [tool.uv.sources]
-# wigglystuff = { path = "../", editable = true }
+# wigglystuff = { git = "https://github.com/eckp/wigglystuff.git", branch = "feature/exponential_tangle" }
 # ///
 
 import marimo
